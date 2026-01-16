@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos Personalizados - PersoIta</title>
+    <meta name="description" content="Encontre os melhores produtos personalizados: canecas, camisas, chaveiros e placas de acrílico. Personalize com sua arte ou texto.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos temporários para evitar erros antes do CSS carregar */
+        .no-products-message {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        
+        .no-products-message i {
+            font-size: 3rem;
+            color: #E9ECEF;
+            margin-bottom: 15px;
+        }
+        
+        /* Loading placeholders */
+        .loading-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Estilos para produtos enquanto não carrega o CSS completo */
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-category {
+            color: #6C757D;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #2C3E50;
+            font-weight: 600;
+        }
+        
+        .product-description {
+            color: #495057;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4A6FA5;
+            margin-right: 10px;
+        }
+        
+        .original-price {
+            font-size: 0.9rem;
+            color: #6C757D;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+        
+        .discount-badge {
+            background-color: #28A745;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-add-to-cart, .btn-view-details {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-to-cart {
+            background-color: #4A6FA5;
+            color: white;
+            border: none;
+        }
+        
+        .btn-add-to-cart:hover {
+            background-color: #3A5985;
+        }
+        
+        .btn-view-details {
+            background-color: white;
+            color: #4A6FA5;
+            border: 2px solid #4A6FA5;
+        }
+        
+        .btn-view-details:hover {
+            background-color: #4A6FA5;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container para o Header (será preenchido pelo components.js) -->
+    <div id="header-component">
+        <!-- Header será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 80px;"></div>
+    </div>
+
+    <!-- Cabeçalho da página de produtos -->
+    <section class="page-header">
+        <div class="container">
+            <h1 id="page-title" class="loading-placeholder" style="height: 40px; width: 70%; margin: 0 auto 10px;"></h1>
+            <p id="page-subtitle" class="loading-placeholder" style="height: 24px; width: 50%; margin: 0 auto;"></p>
+        </div>
+    </section>
+
+    <!-- Filtros de Categorias Atualizados -->
+    <section class="product-filters">
+        <div class="container">
+            <div class="filter-buttons">
+                <div class="loading-placeholder" style="height: 40px; width: 100%; margin-bottom: 10px;"></div>
+                <div class="loading-placeholder" style="height: 40px; width: 100%; margin-bottom: 10px;"></div>
+                <div class="loading-placeholder" style="height: 40px; width: 100%; margin-bottom: 10px;"></div>
+            </div>
+            <div class="filter-controls">
+                <div class="loading-placeholder" style="height: 40px; width: 200px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lista de Produtos -->
+    <section class="products-section">
+        <div class="container">
+            <div class="products-grid" id="products-container">
+                <!-- Produtos serão carregados via JavaScript -->
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                <div class="product-card loading-placeholder" style="height: 400px;"></div>
+            </div>
+            <div id="no-products" class="no-products-message" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Nenhum produto encontrado</h3>
+                <p>Tente alterar os filtros ou buscar por outro termo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container para o Footer (será preenchido pelo components.js) -->
+    <div id="footer-component">
+        <!-- Footer será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 300px;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script>
+        // Script específico para página de produtos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aguardar componentes carregarem
+            const waitForComponents = setInterval(function() {
+                if (document.querySelector('#header-component header') && 
+                    document.querySelector('#footer-component footer')) {
+                    clearInterval(waitForComponents);
+                    initProductsPage();
+                }
+            }, 100);
+            
+            // Timeout para segurança
+            setTimeout(function() {
+                clearInterval(waitForComponents);
+                initProductsPage();
+            }, 3000);
+        });
+        
+        function initProductsPage() {
+            console.log('Inicializando página de produtos...');
+            
+            // Remover placeholders de loading
+            removeLoadingPlaceholders();
+            
+            // Configurar página
+            setupProductsPage();
+        }
+        
+        function removeLoadingPlaceholders() {
+            // Remover todas as classes de loading placeholder
+            const placeholders = document.querySelectorAll('.loading-placeholder');
+            placeholders.forEach(el => {
+                el.classList.remove('loading-placeholder');
+                el.removeAttribute('style');
+                
+                // Limpar conteúdo dos elementos que deveriam ter conteúdo dinâmico
+                if (el.classList.contains('product-card') || 
+                    el.id === 'page-title' || 
+                    el.id === 'page-subtitle' ||
+                    el.closest('.filter-buttons') ||
+                    el.closest('.filter-controls')) {
+                    el.innerHTML = '';
+                }
+            });
+        }
+        
+        function setupProductsPage() {
+            // Restaurar filtros
+            setupFilters();
+            
+            // Verificar parâmetros da URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoria = urlParams.get('categoria');
+            const tipo = urlParams.get('tipo');
+            const busca = urlParams.get('busca');
+            
+            // Configurar título baseado nos parâmetros
+            updatePageTitle(categoria, tipo, busca);
+            
+            // Configurar filtro ativo baseado nos parâmetros
+            setActiveFilter(categoria);
+            
+            // Inicializar produtos
+            initializeProducts(categoria, tipo, busca);
+        }
+        
+        function setupFilters() {
+            // Configurar botões de filtro
+            const filterButtons = [
+                { category: 'todos', text: 'Todos os Produtos' },
+                { category: 'canecas', text: 'Canecas' },
+                { category: 'camisas', text: 'Camisas' },
+                { category: 'chaveiros', text: 'Chaveiros' },
+                { category: 'placas', text: 'Placas de Acrílico' },
+                { category: 'azulejos', text: 'Azulejos' },
+                { category: 'quebra-cabeca', text: 'Quebra-cabeças' },
+                { category: 'chinelos', text: 'Chinelos' }
+            ];
+            
+            const filterButtonsContainer = document.querySelector('.filter-buttons');
+            if (filterButtonsContainer) {
+                filterButtonsContainer.innerHTML = '';
+                
+                filterButtons.forEach(filter => {
+                    const button = document.createElement('button');
+                    button.className = 'filter-btn';
+                    button.setAttribute('data-category', filter.category);
+                    button.textContent = filter.text;
+                    filterButtonsContainer.appendChild(button);
+                });
+                
+                // Configurar eventos dos filtros
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const category = this.getAttribute('data-category');
+                        
+                        // Atualizar botão ativo
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Filtrar produtos
+                        filterProducts(category === 'todos' ? null : category);
+                        
+                        // Atualizar URL sem recarregar a página
+                        const urlParams = new URLSearchParams(window.location.search);
+                        if (category === 'todos') {
+                            urlParams.delete('categoria');
+                            urlParams.delete('tipo');
+                        } else {
+                            urlParams.set('categoria', category);
+                            urlParams.delete('tipo');
+                        }
+                        urlParams.delete('busca');
+                        
+                        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+                        window.history.pushState({}, '', newUrl);
+                        
+                        // Atualizar título da página
+                        updatePageTitle(category === 'todos' ? null : category);
+                    });
+                });
+            }
+            
+            // Configurar dropdown de ordenação
+            const sortSelect = document.getElementById('sort-select');
+            if (!sortSelect) {
+                const filterControls = document.querySelector('.filter-controls');
+                if (filterControls) {
+                    const sortDiv = document.createElement('div');
+                    sortDiv.className = 'filter-sort';
+                    sortDiv.innerHTML = `
+                        <label for="sort-select">Ordenar por:</label>
+                        <select id="sort-select">
+                            <option value="relevancia">Relevância</option>
+                            <option value="preco-crescente">Preço: Menor para Maior</option>
+                            <option value="preco-decrescente">Preço: Maior para Menor</option>
+                            <option value="nome">Nome (A-Z)</option>
+                        </select>
+                    `;
+                    filterControls.appendChild(sortDiv);
+                }
+            }
+            
+            // Configurar evento de ordenação
+            document.getElementById('sort-select').addEventListener('change', function() {
+                sortProducts(this.value);
+            });
+        }
+        
+        function updatePageTitle(categoria, tipo = null, busca = null) {
+            const pageTitle = document.getElementById('page-title');
+            const pageSubtitle = document.getElementById('page-subtitle');
+            
+            if (!pageTitle || !pageSubtitle) return;
+            
+            if (busca) {
+                pageTitle.textContent = `Resultados para: "${busca}"`;
+                pageSubtitle.textContent = 'Encontre o produto ideal para personalizar com sua arte, foto ou texto';
+                return;
+            }
+            
+            const titulos = {
+                'canecas': 'Canecas Personalizadas',
+                'camisas': 'Camisas Personalizadas',
+                'chaveiros': 'Chaveiros Personalizados',
+                'placas': 'Placas de Acrílico Personalizadas',
+                'azulejos': 'Azulejos Personalizados',
+                'quebra-cabeca': 'Quebra-cabeças Personalizados',
+                'chinelos': 'Chinelos Personalizados'
+            };
+            
+            if (categoria && titulos[categoria]) {
+                pageTitle.textContent = titulos[categoria];
+                
+                if (tipo) {
+                    const subtipos = {
+                        'ceramica': 'Canecas de Cerâmica Personalizadas',
+                        'magica': 'Canecas Mágicas Personalizadas',
+                        'interiorColorido': 'Canecas de Interior Colorido',
+                        'vidro': 'Canecas de Vidro Personalizadas',
+                        'personalizadas': 'Canecas Totalmente Personalizadas',
+                        'algodao': 'Camisas de Algodão Personalizadas',
+                        'polo': 'Camisas Polo Personalizadas',
+                        'moletom': 'Moletons Personalizados',
+                        'regata': 'Regatas Personalizadas',
+                        'acrilico': 'Chaveiros de Acrílico Personalizados',
+                        'madeira': 'Chaveiros de Madeira Personalizados',
+                        'metal': 'Chaveiros de Metal Personalizados',
+                        'couro': 'Chaveiros de Couro Personalizados',
+                        'retangular': 'Placas Retangulares Personalizadas',
+                        'circular': 'Placas Circulares Personalizadas',
+                        'formatos': 'Placas com Formatos Especiais',
+                        'led': 'Placas com LED Personalizadas'
+                    };
+                    
+                    if (subtipos[tipo]) {
+                        pageSubtitle.textContent = subtipos[tipo];
+                    } else {
+                        pageSubtitle.textContent = 'Encontre o produto ideal para personalizar com sua arte, foto ou texto';
+                    }
+                } else {
+                    pageSubtitle.textContent = 'Encontre o produto ideal para personalizar com sua arte, foto ou texto';
+                }
+            } else {
+                pageTitle.textContent = 'Produtos Personalizados';
+                pageSubtitle.textContent = 'Encontre o produto ideal para personalizar com sua arte, foto ou texto';
+            }
+        }
+        
+        function setActiveFilter(categoria) {
+            if (!categoria) {
+                // Ativar "Todos os Produtos"
+                const todosBtn = document.querySelector('.filter-btn[data-category="todos"]');
+                if (todosBtn) {
+                    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                    todosBtn.classList.add('active');
+                }
+                return;
+            }
+            
+            const filterBtn = document.querySelector(`.filter-btn[data-category="${categoria}"]`);
+            if (filterBtn) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                filterBtn.classList.add('active');
+            }
+        }
+        
+        function initializeProducts(categoria = null, tipo = null, busca = null) {
+            // Verificar se produtos.js está carregado
+            if (window.initializeProductsPage) {
+                window.initializeProductsPage(categoria, tipo, busca);
+            } else if (window.produtos && Array.isArray(window.produtos)) {
+                // Se temos dados de produtos, mostrar diretamente
+                displayProducts(window.produtos, categoria, tipo, busca);
+            } else {
+                // Fallback: carregar dados de exemplo
+                loadSampleProducts(categoria, tipo, busca);
+            }
+        }
+        
+        function filterProducts(categoria, tipo = null) {
+            // Verificar se temos produtos para filtrar
+            if (window.produtos && Array.isArray(window.produtos)) {
+                displayProducts(window.produtos, categoria, tipo);
+            } else if (typeof filterAndDisplayProducts === 'function') {
+                filterAndDisplayProducts(categoria, tipo);
+            } else {
+                // Recarregar produtos filtrados
+                initializeProducts(categoria, tipo);
+            }
+            
+            // Atualizar título
+            updatePageTitle(categoria, tipo);
+        }
+        
+        function sortProducts(criteria) {
+            if (window.sortAndDisplayProducts) {
+                window.sortAndDisplayProducts(criteria);
+            } else {
+                // Implementação básica de ordenação
+                const productsContainer = document.getElementById('products-container');
+                const products = Array.from(productsContainer.querySelectorAll('.product-card'));
+                
+                products.sort((a, b) => {
+                    const priceA = parseFloat(a.querySelector('.current-price')?.textContent?.replace(/[^\d,]/g, '').replace(',', '.') || 0);
+                    const priceB = parseFloat(b.querySelector('.current-price')?.textContent?.replace(/[^\d,]/g, '').replace(',', '.') || 0);
+                    const nameA = a.querySelector('.product-name')?.textContent || '';
+                    const nameB = b.querySelector('.product-name')?.textContent || '';
+                    
+                    switch(criteria) {
+                        case 'preco-crescente':
+                            return priceA - priceB;
+                        case 'preco-decrescente':
+                            return priceB - priceA;
+                        case 'nome':
+                            return nameA.localeCompare(nameB);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                // Reordenar no DOM
+                products.forEach(product => productsContainer.appendChild(product));
+            }
+        }
+        
+        function displayProducts(products, categoria = null, tipo = null, busca = null) {
+            const productsContainer = document.getElementById('products-container');
+            const noProductsMessage = document.getElementById('no-products');
+            
+            if (!productsContainer) return;
+            
+            // Filtrar produtos
+            let filteredProducts = [...products];
+            
+            if (categoria) {
+                filteredProducts = filteredProducts.filter(p => p.categoria === categoria);
+            }
+            
+            if (tipo) {
+                filteredProducts = filteredProducts.filter(p => p.tipo === tipo);
+            }
+            
+            if (busca) {
+                const searchTerm = busca.toLowerCase();
+                filteredProducts = filteredProducts.filter(p => 
+                    p.nome.toLowerCase().includes(searchTerm) ||
+                    p.descricao.toLowerCase().includes(searchTerm) ||
+                    p.categoria.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Limpar container
+            productsContainer.innerHTML = '';
+            
+            // Mostrar mensagem se não houver produtos
+            if (filteredProducts.length === 0) {
+                if (noProductsMessage) {
+                    noProductsMessage.style.display = 'block';
+                }
+                productsContainer.style.display = 'none';
+                return;
+            }
+            
+            // Ocultar mensagem de "sem produtos"
+            if (noProductsMessage) {
+                noProductsMessage.style.display = 'none';
+            }
+            productsContainer.style.display = 'grid';
+            
+            // Adicionar produtos ao container
+            filteredProducts.forEach(product => {
+                const productCard = createProductCard(product);
+                productsContainer.appendChild(productCard);
+            });
+        }
+        
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.imagem || 'assets/images/produtos/default.jpg'}" alt="${product.nome}" loading="lazy">
+                    ${product.desconto || (product.precoOriginal && product.precoOriginal > product.preco) ? '<span class="product-badge">Oferta</span>' : ''}
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${(product.categoria || '').charAt(0).toUpperCase() + (product.categoria || '').slice(1)}</div>
+                    <h3 class="product-name">${product.nome || 'Produto'}</h3>
+                    <p class="product-description">${(product.descricao || '').substring(0, 60)}...</p>
+                    <div class="product-price">
+                        <span class="current-price">${formatPrice(product.preco || 0)}</span>
+                        ${product.precoOriginal && product.precoOriginal > product.preco ? 
+                            `<span class="original-price">${formatPrice(product.precoOriginal)}</span>
+                             <span class="discount-badge">-${Math.round(100 - ((product.preco || 0) / product.precoOriginal) * 100)}%</span>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart" onclick="addToCart('${product.id || '1'}', 1)">
+                            <i class="fas fa-shopping-cart"></i> Adicionar
+                        </button>
+                        <button class="btn-view-details" onclick="window.location.href='produto.html?id=${product.id || '1'}'">
+                            <i class="fas fa-eye"></i> Ver
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar evento de clique na imagem do produto
+            card.querySelector('.product-image').addEventListener('click', function() {
+                window.location.href = `produto.html?id=${product.id || '1'}`;
+            });
+            
+            return card;
+        }
+        
+        function loadSampleProducts(categoria = null, tipo = null, busca = null) {
+            // Dados de exemplo para fallback
+            const sampleProducts = [
+                {
+                    id: 1,
+                    nome: 'Caneca Personalizada Cerâmica',
+                    descricao: 'Caneca de cerâmica de alta qualidade, perfeita para personalizar com sua foto ou texto.',
+                    preco: 39.90,
+                    precoOriginal: 49.90,
+                    categoria: 'canecas',
+                    tipo: 'ceramica',
+                    imagem: 'assets/images/produtos/caneca-01.jpg'
+                },
+                {
+                    id: 2,
+                    nome: 'Camisa de Algodão Personalizada',
+                    descricao: 'Camisa 100% algodão, ideal para estampas personalizadas de alta qualidade.',
+                    preco: 59.90,
+                    precoOriginal: 79.90,
+                    categoria: 'camisas',
+                    tipo: 'algodao',
+                    imagem: 'assets/images/produtos/camisa-01.jpg'
+                },
+                {
+                    id: 3,
+                    nome: 'Chaveiro de Acrílico Personalizado',
+                    descricao: 'Chaveiro de acrílico com impressão de alta resolução, durável e personalizável.',
+                    preco: 14.90,
+                    categoria: 'chaveiros',
+                    tipo: 'acrilico',
+                    imagem: 'assets/images/produtos/chaveiro-01.jpg'
+                },
+                {
+                    id: 4,
+                    nome: 'Placa de Acrílico Retangular',
+                    descricao: 'Placa de acrílico para escritório ou decoração, personalizável com seu texto.',
+                    preco: 89.90,
+                    categoria: 'placas',
+                    tipo: 'retangular',
+                    imagem: 'assets/images/produtos/placa-01.jpg'
+                },
+                {
+                    id: 5,
+                    nome: 'Caneca Mágica Personalizada',
+                    descricao: 'Caneca mágica que revela imagens quando aquecida com líquido quente.',
+                    preco: 49.90,
+                    categoria: 'canecas',
+                    tipo: 'magica',
+                    imagem: 'assets/images/produtos/caneca-02.jpg'
+                },
+                {
+                    id: 6,
+                    nome: 'Camisa Polo Personalizada',
+                    descricao: 'Camisa polo de alta qualidade, perfeita para uniformes corporativos.',
+                    preco: 79.90,
+                    categoria: 'camisas',
+                    tipo: 'polo',
+                    imagem: 'assets/images/produtos/camisa-02.jpg'
+                },
+                {
+                    id: 7,
+                    nome: 'Quebra-cabeça Personalizado',
+                    descricao: 'Quebra-cabeça com sua foto personalizada, diversão garantida.',
+                    preco: 69.90,
+                    categoria: 'quebra-cabeca',
+                    imagem: 'assets/images/produtos/quebra-cabeca-01.jpg'
+                },
+                {
+                    id: 8,
+                    nome: 'Chinelos Personalizados',
+                    descricao: 'Chinelos confortáveis com estampa personalizada, ideal para presentear.',
+                    preco: 34.90,
+                    categoria: 'chinelos',
+                    imagem: 'assets/images/produtos/chinelo-01.jpg'
+                }
+            ];
+            
+            // Armazenar produtos globalmente
+            window.produtos = sampleProducts;
+            
+            // Exibir produtos
+            displayProducts(sampleProducts, categoria, tipo, busca);
+        }
+        
+        function formatPrice(price) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(price);
+        }
+        
+        // Funções globais para serem sobrescritas por outros scripts
+        window.filterProducts = filterProducts;
+        window.sortProducts = sortProducts;
+        window.updatePageTitle = updatePageTitle;
+        window.displayProducts = displayProducts;
+        
+        // Função global para adicionar ao carrinho (será sobrescrita pelo carrinho.js)
+        window.addToCart = window.addToCart || function(productId, quantity, customizations) {
+            console.log('Adicionando ao carrinho (fallback):', { productId, quantity, customizations });
+            alert('Produto adicionado ao carrinho!');
+            return true;
+        };
+    </script>
+</body>
+</html>

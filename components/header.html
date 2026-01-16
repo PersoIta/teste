@@ -1,0 +1,156 @@
+<!-- Header Component -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.png" alt="PersoIta - Produtos Personalizados" class="logo-img">
+                </a>
+            </div>
+
+            <!-- Menu Principal SIMPLIFICADO -->
+            <nav class="nav-menu">
+                <ul class="nav-list">
+                    <!-- PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="produtos.html" class="nav-link" style="
+                            color: #4A6FA5;
+                            font-weight: 500;
+                            padding: 10px 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            font-size: 16px;
+                            text-decoration: none;
+                            border-radius: 8px;
+                            background-color: white;
+                            border: 2px solid #4A6FA5;
+                        ">
+                            <i class="fas fa-store"></i> Produtos
+                        </a>
+                    </li>
+                    
+                    <!-- QUEM SOMOS -->
+                    <li class="nav-item">
+                        <a href="quem-somos.html" class="nav-link" style="
+                            color: #4A6FA5;
+                            font-weight: 500;
+                            padding: 10px 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            font-size: 16px;
+                            text-decoration: none;
+                            border-radius: 8px;
+                            background-color: white;
+                            border: 2px solid #4A6FA5;
+                        ">
+                            <i class="fas fa-users"></i> Quem Somos
+                        </a>
+                    </li>
+                    
+                    <!-- CONTATO -->
+                    <li class="nav-item">
+                        <a href="contato.html" class="nav-link" style="
+                            color: #4A6FA5;
+                            font-weight: 500;
+                            padding: 10px 15px;
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            font-size: 16px;
+                            text-decoration: none;
+                            border-radius: 8px;
+                            background-color: white;
+                            border: 2px solid #4A6FA5;
+                        ">
+                            <i class="fas fa-envelope"></i> Contato
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Área de busca e carrinho -->
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Buscar produtos...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="cart-icon">
+                    <a href="carrinho.html">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    /* CSS INLINE para garantir que apareça */
+    .header {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        padding: 10px 0;
+    }
+    
+    .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .nav-menu {
+        flex: 1;
+        margin: 0 15px;
+    }
+    
+    .nav-list {
+        display: flex !important;
+        list-style: none !important;
+        justify-content: center !important;
+        gap: 40px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .nav-item {
+        display: block !important;
+    }
+    
+    .nav-link {
+        color: #4A6FA5 !important;
+        font-weight: 500 !important;
+        padding: 10px 15px !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        font-size: 16px !important;
+        text-decoration: none !important;
+        border-radius: 8px !important;
+        background-color: white !important;
+        border: 2px solid #4A6FA5 !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .nav-link:hover {
+        background-color: #4A6FA5 !important;
+        color: white !important;
+        transform: translateY(-2px) !important;
+    }
+    
+    /* Garantir que nada esteja escondendo */
+    .nav-menu, .nav-list, .nav-item, .nav-link {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        width: auto !important;
+    }
+</style>

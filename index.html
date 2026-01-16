@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersoIta - Produtos Personalizados com Qualidade</title>
+    <meta name="description" content="Crie produtos personalizados únicos! Canecas, camisas, chaveiros e placas de acrílico com sua arte ou texto. Enviamos para todo Brasil.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon (opcional) -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <!-- Container para o Header -->
+    <div id="header-component">
+        <div class="loading-placeholder" style="height: 80px;"></div>
+    </div>
+    
+    <!-- Banner Principal -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Crie momentos únicos com produtos personalizados</h1>
+                <p class="hero-subtitle">Presentes especiais para pessoas especiais. Personalize canecas, camisas, chaveiros e muito mais!</p>
+                <a href="#destaques" class="btn-primary">Ver Produtos em Destaque</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Categorias -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Nossas Categorias</h2>
+            <div class="categories-grid">
+                <a href="produtos.html?categoria=canecas" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <h3>Canecas</h3>
+                    <p>Canecas de porcelana para personalização</p>
+                </a>
+                <a href="produtos.html?categoria=camisas" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>Camisas</h3>
+                    <p>Body infantil e camisas adulto</p>
+                </a>
+                <a href="produtos.html?categoria=chaveiros" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3>Chaveiros</h3>
+                    <p>Acrílico e madeira personalizados</p>
+                </a>
+                <a href="produtos.html?categoria=placas" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-clipboard"></i>
+                    </div>
+                    <h3>Placas de Acrílico</h3>
+                    <p>Brancas e transparentes</p>
+                </a>
+                <a href="produtos.html?categoria=azulejos" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-square"></i>
+                    </div>
+                    <h3>Azulejos</h3>
+                    <p>Azulejos quadrados personalizados</p>
+                </a>
+                <a href="produtos.html?categoria=quebra-cabeca" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3>Quebra-cabeças</h3>
+                    <p>Personalize seu quebra-cabeça</p>
+                </a>
+                <a href="produtos.html?categoria=chinelos" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shoe-prints"></i>
+                    </div>
+                    <h3>Chinelos</h3>
+                    <p>Chinelos brancos personalizados</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos em Destaque -->
+    <section class="featured-products" id="destaques">
+        <div class="container">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <div class="products-grid" id="featured-products">
+                <!-- Produtos serão carregados via JavaScript -->
+                <div class="loading-products">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Carregando produtos...</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="produtos.html" class="btn-secondary">Ver Todos os Produtos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Como Funciona -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Como Funciona</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Escolha o Produto</h3>
+                    <p>Selecione entre canecas, camisas, chaveiros ou placas de acrílico.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Personalize</h3>
+                    <p>Adicione sua arte, texto ou foto. Nossa equipe te auxilia se necessário.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Finalize o Pedido</h3>
+                    <p>Revise seu produto personalizado e conclua a compra.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Receba em Casa</h3>
+                    <p>Produzimos com cuidado e enviamos para todo o Brasil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container para o Footer -->
+    <div id="footer-component">
+        <div class="loading-placeholder" style="height: 300px;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/carrinho.js"></script>
+    
+    <!-- Script específico da página inicial -->
+    <script>
+        // Aguardar sistema principal carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Página inicial - inicializando...');
+            
+            // Esperar um pouco para garantir que o sistema principal carregou
+            setTimeout(function() {
+                // Verificar se estamos na página inicial
+                const isHomePage = window.location.pathname.includes('index.html') || 
+                                  window.location.pathname === '/' || 
+                                  window.location.pathname.endsWith('/');
+                
+                if (isHomePage) {
+                    console.log('✅ Página inicial confirmada');
+                    
+                    // Remover mensagem de carregamento
+                    const loadingElement = document.querySelector('.loading-products');
+                    if (loadingElement) {
+                        loadingElement.style.display = 'none';
+                    }
+                    
+                    // Verificar se a função existe e chamá-la
+                    if (typeof loadFeaturedProducts === 'function') {
+                        console.log('Chamando loadFeaturedProducts...');
+                        loadFeaturedProducts();
+                    } else {
+                        console.warn('loadFeaturedProducts não disponível, tentando fallback...');
+                        // Fallback manual
+                        criarProdutosManualmente();
+                    }
+                }
+            }, 500); // Pequeno delay para garantir carregamento
+        });
+        
+        // Fallback manual (caso a função do main.js não carregue)
+        function criarProdutosManualmente() {
+            const container = document.getElementById('featured-products');
+            if (!container) {
+                console.error('Container de produtos não encontrado');
+                return;
+            }
+            
+            console.log('Criando produtos manualmente (fallback)...');
+            
+            // Verificar se temos produtos
+            if (!window.produtos || !Array.isArray(window.produtos) || window.produtos.length === 0) {
+                container.innerHTML = `
+                    <div class="no-products-message">
+                        <i class="fas fa-search"></i>
+                        <h3>Nenhum produto disponível</h3>
+                        <p>Os produtos serão carregados em breve.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Limpar container
+            container.innerHTML = '';
+            
+            // Pegar até 4 produtos em destaque
+            const produtosEmDestaque = window.produtos
+                .filter(p => p.emDestaque === true)
+                .slice(0, 4);
+            
+            // Se não houver em destaque, pegar os primeiros 4
+            const produtosParaMostrar = produtosEmDestaque.length > 0 
+                ? produtosEmDestaque 
+                : window.produtos.slice(0, 4);
+            
+            // Adicionar produtos ao container
+            produtosParaMostrar.forEach(produto => {
+                try {
+                    // Usar a função createProductCard se disponível
+                    if (typeof createProductCard === 'function') {
+                        const card = createProductCard(produto);
+                        container.appendChild(card);
+                    } else {
+                        // Fallback HTML básico
+                        const cardHTML = `
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <img src="${produto.imagem || 'https://via.placeholder.com/500x500/4A6FA5/FFFFFF?text=Produto'}" alt="${produto.nome}">
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">${produto.categoria || 'Produto'}</span>
+                                    <h3 class="product-name">${produto.nome || 'Produto'}</h3>
+                                    <p class="product-description">${produto.descricao || 'Descrição do produto'}</p>
+                                    <div class="product-price">
+                                        <span class="current-price">R$ ${(produto.preco || 0).toFixed(2)}</span>
+                                    </div>
+                                    <div class="product-actions">
+                                        <button class="btn-add-to-cart" onclick="addToCart(${produto.id}, 1)">
+                                            <i class="fas fa-shopping-cart"></i> Adicionar
+                                        </button>
+                                        <a href="produto.html?id=${produto.id}" class="btn-view-details">Ver Detalhes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        container.insertAdjacentHTML('beforeend', cardHTML);
+                    }
+                } catch (error) {
+                    console.error('Erro ao criar card do produto:', error);
+                }
+            });
+            
+            console.log(`${produtosParaMostrar.length} produtos criados manualmente`);
+        }
+        
+        // Adicionar CSS para estado de carregamento
+        const loadingStyle = document.createElement('style');
+        loadingStyle.textContent = `
+            .loading-products {
+                text-align: center;
+                padding: 40px;
+                grid-column: 1 / -1;
+                color: var(--gray-color);
+            }
+            
+            .loading-products i {
+                font-size: 2rem;
+                margin-bottom: 15px;
+                color: var(--primary-color);
+            }
+            
+            .no-products-message {
+                text-align: center;
+                padding: 40px;
+                grid-column: 1 / -1;
+                background-color: white;
+                border-radius: 12px;
+                box-shadow: var(--shadow-md);
+            }
+            
+            .no-products-message i {
+                font-size: 3rem;
+                color: var(--gray-light);
+                margin-bottom: 15px;
+            }
+            
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            .fa-spin {
+                animation: spin 1s linear infinite;
+            }
+        `;
+        document.head.appendChild(loadingStyle);
+    </script>
+</body>
+</html>

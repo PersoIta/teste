@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras - PersoIta</title>
+    <meta name="description" content="Seu carrinho de compras na PersoIta. Revise seus produtos personalizados antes de finalizar o pedido.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Importar sistema de componentes -->
+    <script src="js/components.js" defer></script>
+</head>
+<body>
+    <!-- Containers para os componentes -->
+    <div id="header-component">
+        <!-- Header será carregado dinamicamente aqui -->
+        <div class="component-loading">
+            Carregando menu...
+        </div>
+    </div>
+
+    <!-- Cabeçalho do Carrinho -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Meu Carrinho</h1>
+            <p>Revise seus produtos personalizados antes de finalizar o pedido</p>
+        </div>
+    </section>
+
+    <!-- Conteúdo do Carrinho -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-content">
+                <!-- Itens do Carrinho -->
+                <div class="cart-items">
+                    <div class="cart-header">
+                        <h2>Produtos Selecionados</h2>
+                        <button class="clear-cart-btn" id="clear-cart">Limpar Carrinho</button>
+                    </div>
+                    
+                    <div class="cart-items-list" id="cart-items-container">
+                        <!-- Itens do carrinho serão carregados via JavaScript -->
+                        <div class="empty-cart-message" id="empty-cart-message">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h3>Seu carrinho está vazio</h3>
+                            <p>Adicione produtos personalizados para ver eles aqui.</p>
+                            <a href="produtos.html" class="btn-primary">Ver Produtos</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resumo do Pedido -->
+                <div class="cart-summary">
+                    <h2>Resumo do Pedido</h2>
+                    
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="subtotal">R$ 0,00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Frete</span>
+                            <span id="shipping">Calcular</span>
+                        </div>
+                        <div class="summary-row discount-row">
+                            <div>
+                                <span>Cupom de desconto</span>
+                                <a href="#" class="discount-link">Tenho um cupom</a>
+                            </div>
+                            <span id="discount">- R$ 0,00</span>
+                        </div>
+                        <div class="summary-divider"></div>
+                        <div class="summary-row total-row">
+                            <span><strong>Total</strong></span>
+                            <span id="total"><strong>R$ 0,00</strong></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cálculo de Frete -->
+                    <div class="shipping-calculator">
+                        <h3>Calcular Frete</h3>
+                        <div class="shipping-form">
+                            <input type="text" id="cep-input" placeholder="Digite seu CEP" maxlength="9">
+                            <button class="btn-secondary" id="calculate-shipping">Calcular</button>
+                        </div>
+                        <div class="shipping-options" id="shipping-options">
+                            <!-- Opções de frete serão carregadas aqui -->
+                        </div>
+                    </div>
+                    
+                    <!-- Botão de Finalização -->
+                    <button class="btn-primary checkout-btn" id="checkout-btn">
+                        <i class="fas fa-whatsapp"></i> Finalizar Pedido via WhatsApp
+                    </button>
+                    
+                    <p class="secure-checkout">
+                        <i class="fas fa-lock"></i> Compra 100% segura
+                    </p>
+                    
+                    <!-- Formas de Pagamento -->
+                    <div class="payment-methods">
+                        <h3>Formas de Pagamento</h3>
+                        <div class="payment-icons">
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-amex"></i>
+                            <i class="fab fa-cc-paypal"></i>
+                            <i class="fas fa-barcode"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produtos Recomendados -->
+            <div class="recommended-products">
+                <h2>Você também pode gostar</h2>
+                <div class="products-grid" id="recommended-products">
+                    <!-- Produtos recomendados serão carregados via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container para o footer -->
+    <div id="footer-component">
+        <!-- Footer será carregado dinamicamente aqui -->
+        <div class="component-loading">
+            Carregando rodapé...
+        </div>
+    </div>
+
+    <!-- Scripts da página -->
+    <script src="js/produtos.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Script específico para página do carrinho -->
+    <script>
+        // Esperar os componentes carregarem antes de inicializar a página do carrinho
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar se o sistema de componentes já carregou
+            function initCartPage() {
+                // Carregar carrinho
+                loadCart();
+                
+                // Carregar produtos recomendados
+                loadRecommendedProducts();
+                
+                // Configurar botão "Limpar Carrinho"
+                const clearCartBtn = document.getElementById('clear-cart');
+                if (clearCartBtn) {
+                    clearCartBtn.addEventListener('click', function() {
+                        if (confirm('Tem certeza que deseja limpar seu carrinho?')) {
+                            clearCart();
+                            loadCart();
+                            updateCartCount();
+                        }
+                    });
+                }
+                
+                // Configurar cálculo de frete
+                const cepInput = document.getElementById('cep-input');
+                const calculateShippingBtn = document.getElementById('calculate-shipping');
+                
+                if (cepInput && calculateShippingBtn) {
+                    // Formatar CEP
+                    cepInput.addEventListener('input', function() {
+                        let value = this.value.replace(/\D/g, '');
+                        if (value.length > 5) {
+                            value = value.substring(0,5) + '-' + value.substring(5,8);
+                        }
+                        this.value = value;
+                    });
+                    
+                    // Calcular frete
+                    calculateShippingBtn.addEventListener('click', function() {
+                        const cep = cepInput.value.replace(/\D/g, '');
+                        
+                        if (cep.length === 8) {
+                            calculateShipping(cep);
+                        } else {
+                            alert('Por favor, digite um CEP válido (8 dígitos).');
+                            cepInput.focus();
+                        }
+                    });
+                    
+                    // Permitir calcular com Enter
+                    cepInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            calculateShippingBtn.click();
+                        }
+                    });
+                }
+                
+                // Configurar botão de finalização
+                const checkoutBtn = document.getElementById('checkout-btn');
+                if (checkoutBtn) {
+                    checkoutBtn.addEventListener('click', function() {
+                        finalizeOrder();
+                    });
+                }
+            }
+            
+            // Se os componentes já carregaram, inicializar a página do carrinho
+            if (window.componentsLoaded) {
+                initCartPage();
+            } else {
+                // Esperar os componentes carregarem
+                const checkComponents = setInterval(function() {
+                    if (window.componentsLoaded) {
+                        clearInterval(checkComponents);
+                        // Pequeno delay para garantir que tudo está pronto
+                        setTimeout(initCartPage, 100);
+                    }
+                }, 100);
+            }
+        });
+        
+        // Funções da página do carrinho (mantidas do seu código original)
+        function loadCart() {
+            const cart = getCart();
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const subtotalElement = document.getElementById('subtotal');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                // Carrinho vazio
+                if (emptyCartMessage) emptyCartMessage.style.display = 'flex';
+                if (cartItemsContainer) {
+                    // Manter apenas a mensagem de carrinho vazio
+                    const items = cartItemsContainer.querySelectorAll('.cart-item');
+                    items.forEach(item => item.remove());
+                }
+                
+                // Atualizar totais
+                if (subtotalElement) subtotalElement.textContent = 'R$ 0,00';
+                if (totalElement) totalElement.textContent = 'R$ 0,00';
+                
+                // Desabilitar botão de finalização
+                const checkoutBtn = document.getElementById('checkout-btn');
+                if (checkoutBtn) {
+                    checkoutBtn.disabled = true;
+                    checkoutBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> Carrinho Vazio';
+                }
+                
+                return;
+            }
+            
+            // Carrinho tem itens
+            if (emptyCartMessage) emptyCartMessage.style.display = 'none';
+            
+            // Limpar container (exceto a mensagem de carrinho vazio)
+            if (cartItemsContainer) {
+                const items = cartItemsContainer.querySelectorAll('.cart-item');
+                items.forEach(item => item.remove());
+            }
+            
+            let subtotal = 0;
+            
+            // Adicionar cada item do carrinho
+            cart.forEach((item, index) => {
+                // Encontrar informações do produto
+                const product = window.produtos.find(p => p.id == item.id);
+                
+                if (product) {
+                    const itemElement = createCartItemElement(product, item, index);
+                    if (cartItemsContainer && itemElement) {
+                        cartItemsContainer.appendChild(itemElement);
+                    }
+                    
+                    // Calcular subtotal
+                    subtotal += product.preco * item.quantity;
+                }
+            });
+            
+            // Atualizar totais
+            if (subtotalElement) subtotalElement.textContent = formatPrice(subtotal);
+            
+            // Calcular total (subtotal + frete - desconto)
+            const shippingElement = document.getElementById('shipping');
+            const shippingValue = shippingElement && shippingElement.dataset.value ? parseFloat(shippingElement.dataset.value) : 0;
+            
+            const discountElement = document.getElementById('discount');
+            const discountValue = discountElement && discountElement.dataset.value ? parseFloat(discountElement.dataset.value) : 0;
+            
+            const total = subtotal + shippingValue - discountValue;
+            
+            if (totalElement) totalElement.textContent = formatPrice(total > 0 ? total : 0);
+            
+            // Habilitar botão de finalização
+            const checkoutBtn = document.getElementById('checkout-btn');
+            if (checkoutBtn) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.innerHTML = '<i class="fas fa-whatsapp"></i> Finalizar Pedido via WhatsApp';
+            }
+        }
+        
+        function createCartItemElement(product, cartItem, index) {
+            const itemTotal = product.preco * cartItem.quantity;
+            
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.dataset.index = index;
+            
+            div.innerHTML = `
+                <div class="cart-item-image">
+                    <img src="${product.imagem}" alt="${product.nome}">
+                </div>
+                <div class="cart-item-details">
+                    <div class="cart-item-header">
+                        <h3>${product.nome}</h3>
+                        <button class="remove-item-btn" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <p class="cart-item-category">${product.categoria}</p>
+                    <p class="cart-item-description">${product.descricao.substring(0, 100)}...</p>
+                    
+                    ${cartItem.customizations && Object.keys(cartItem.customizations).length > 0 ? `
+                    <div class="cart-item-customizations">
+                        <strong>Personalizações:</strong>
+                        <ul>
+                            ${Object.entries(cartItem.customizations).map(([key, value]) => 
+                                `<li>${key}: ${value}</li>`
+                            ).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="cart-item-footer">
+                        <div class="cart-item-quantity">
+                            <button class="quantity-btn minus" data-index="${index}">-</button>
+                            <input type="number" class="quantity-input" value="${cartItem.quantity}" min="1" max="10" data-index="${index}">
+                            <button class="quantity-btn plus" data-index="${index}">+</button>
+                        </div>
+                        <div class="cart-item-price">
+                            <span class="item-total">${formatPrice(itemTotal)}</span>
+                            <span class="item-unit">${formatPrice(product.preco)} cada</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Configurar eventos
+            const removeBtn = div.querySelector('.remove-item-btn');
+            const minusBtn = div.querySelector('.quantity-btn.minus');
+            const plusBtn = div.querySelector('.quantity-btn.plus');
+            const quantityInput = div.querySelector('.quantity-input');
+            
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    removeFromCart(itemIndex);
+                    loadCart();
+                    updateCartCount();
+                });
+            }
+            
+            if (minusBtn) {
+                minusBtn.addEventListener('click', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    updateCartItemQuantity(itemIndex, -1);
+                    loadCart();
+                    updateCartCount();
+                });
+            }
+            
+            if (plusBtn) {
+                plusBtn.addEventListener('click', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    updateCartItemQuantity(itemIndex, 1);
+                    loadCart();
+                    updateCartCount();
+                });
+            }
+            
+            if (quantityInput) {
+                quantityInput.addEventListener('change', function() {
+                    const itemIndex = parseInt(this.dataset.index);
+                    const newQuantity = parseInt(this.value);
+                    
+                    if (newQuantity >= 1 && newQuantity <= 10) {
+                        updateCartItemQuantity(itemIndex, newQuantity, true);
+                        loadCart();
+                        updateCartCount();
+                    } else {
+                        this.value = cartItem.quantity; // Reverter valor inválido
+                    }
+                });
+            }
+            
+            return div;
+        }
+        
+        function calculateShipping(cep) {
+            // Simulação de cálculo de frete
+            const shippingOptions = [
+                { name: 'Economica', delivery: '10-15 dias úteis', price: 15.90 },
+                { name: 'Padrão', delivery: '5-8 dias úteis', price: 24.90 },
+                { name: 'Expressa', delivery: '2-3 dias úteis', price: 39.90 }
+            ];
+            
+            const shippingContainer = document.getElementById('shipping-options');
+            const shippingElement = document.getElementById('shipping');
+            
+            if (shippingContainer) {
+                shippingContainer.innerHTML = '';
+                
+                shippingOptions.forEach(option => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'shipping-option';
+                    optionDiv.innerHTML = `
+                        <div class="shipping-option-info">
+                            <input type="radio" name="shipping" id="shipping-${option.name.toLowerCase()}" value="${option.price}">
+                            <label for="shipping-${option.name.toLowerCase()}">
+                                <strong>${option.name}</strong>
+                                <span>Entrega: ${option.delivery}</span>
+                            </label>
+                        </div>
+                        <span class="shipping-price">${formatPrice(option.price)}</span>
+                    `;
+                    
+                    // Configurar seleção de frete
+                    const radioInput = optionDiv.querySelector('input[type="radio"]');
+                    radioInput.addEventListener('change', function() {
+                        if (this.checked) {
+                            // Atualizar valor do frete
+                            if (shippingElement) {
+                                shippingElement.textContent = formatPrice(option.price);
+                                shippingElement.dataset.value = option.price;
+                            }
+                            
+                            // Recalcular total
+                            loadCart();
+                        }
+                    });
+                    
+                    // Selecionar primeira opção por padrão
+                    if (shippingOptions.indexOf(option) === 0) {
+                        radioInput.checked = true;
+                        if (shippingElement) {
+                            shippingElement.textContent = formatPrice(option.price);
+                            shippingElement.dataset.value = option.price;
+                        }
+                    }
+                    
+                    shippingContainer.appendChild(optionDiv);
+                });
+            }
+        }
+        
+        function loadRecommendedProducts() {
+            const recommendedContainer = document.getElementById('recommended-products');
+            
+            if (window.produtos && Array.isArray(window.produtos) && recommendedContainer) {
+                // Selecionar produtos aleatórios
+                const shuffled = [...window.produtos].sort(() => 0.5 - Math.random());
+                const recommendedProducts = shuffled.slice(0, 4);
+                
+                // Limpar container
+                recommendedContainer.innerHTML = '';
+                
+                // Adicionar produtos recomendados
+                recommendedProducts.forEach(product => {
+                    const productCard = createProductCard(product);
+                    recommendedContainer.appendChild(productCard);
+                });
+            }
+        }
+        
+        function finalizeOrder() {
+            const cart = getCart();
+            
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio. Adicione produtos antes de finalizar o pedido.');
+                return;
+            }
+            
+            // Calcular totais
+            let subtotal = 0;
+            let itemsDetails = '';
+            
+            cart.forEach(item => {
+                const product = window.produtos.find(p => p.id == item.id);
+                if (product) {
+                    const itemTotal = product.preco * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    // Detalhes do item para a mensagem
+                    itemsDetails += `• ${product.nome} - ${item.quantity}x - ${formatPrice(itemTotal)}\n`;
+                    
+                    // Adicionar personalizações se existirem
+                    if (item.customizations && Object.keys(item.customizations).length > 0) {
+                        itemsDetails += '  Personalizações: ';
+                        Object.entries(item.customizations).forEach(([key, value]) => {
+                            itemsDetails += `${key}: ${value}; `;
+                        });
+                        itemsDetails += '\n';
+                    }
+                }
+            });
+            
+            // Obter frete selecionado
+            const shippingElement = document.getElementById('shipping');
+            const shippingValue = shippingElement && shippingElement.dataset.value ? parseFloat(shippingElement.dataset.value) : 0;
+            
+            // Calcular total
+            const total = subtotal + shippingValue;
+            
+            // Criar mensagem para WhatsApp
+            const message = `Olá, gostaria de fazer um pedido na PersoIta!\n\n` +
+                           `*Resumo do Pedido:*\n` +
+                           `${itemsDetails}\n` +
+                           `Subtotal: ${formatPrice(subtotal)}\n` +
+                           `Frete: ${formatPrice(shippingValue)}\n` +
+                           `*Total: ${formatPrice(total)}*\n\n` +
+                           `Meus dados:\n` +
+                           `Nome: [Seu Nome]\n` +
+                           `Endereço: [Seu Endereço]\n` +
+                           `Telefone: [Seu Telefone]\n\n` +
+                           `Como prefere o pagamento?`;
+            
+            // Codificar mensagem para URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Número da loja (exemplo)
+            const phoneNumber = '5511999999999';
+            
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Limpar carrinho após finalização (opcional)
+            // clearCart();
+            // loadCart();
+            // updateCartCount();
+        }
+        
+        function formatPrice(price) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(price);
+        }
+    </script>
+</body>
+</html>

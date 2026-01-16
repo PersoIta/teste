@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem Somos - PersoIta</title>
+    <meta name="description" content="Conheça a história, missão e valores da PersoIta. Saiba como transformamos momentos especiais em memórias tangíveis.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos temporários para evitar erros antes do CSS carregar */
+        .loading-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Estilos básicos para a página enquanto não carrega o CSS completo */
+        .about-section {
+            padding: 60px 0;
+        }
+        
+        .about-content h2 {
+            color: #4A6FA5;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #495057;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .value-card i {
+            font-size: 2.5rem;
+            color: #4A6FA5;
+            margin-bottom: 15px;
+        }
+        
+        .value-card h3 {
+            margin-bottom: 10px;
+            color: #2C3E50;
+        }
+        
+        .value-card p {
+            color: #6C757D;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Container para o Header (será preenchido pelo components.js) -->
+    <div id="header-component">
+        <!-- Header será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 80px;"></div>
+    </div>
+    
+    <section class="page-header">
+        <div class="container">
+            <h1 class="loading-placeholder" style="height: 40px; width: 50%; margin-bottom: 15px;"></h1>
+            <p class="loading-placeholder" style="height: 24px; width: 30%;"></p>
+        </div>
+    </section>
+    
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="loading-placeholder" style="height: 40px; width: 40%; margin-bottom: 20px;"></div>
+                <div class="loading-placeholder" style="height: 100px; margin-bottom: 40px;"></div>
+                
+                <div class="loading-placeholder" style="height: 40px; width: 40%; margin-bottom: 20px;"></div>
+                <div class="loading-placeholder" style="height: 80px; margin-bottom: 40px;"></div>
+                
+                <div class="loading-placeholder" style="height: 40px; width: 40%; margin-bottom: 20px;"></div>
+                <div class="values-grid">
+                    <div class="value-card loading-placeholder" style="height: 200px;"></div>
+                    <div class="value-card loading-placeholder" style="height: 200px;"></div>
+                    <div class="value-card loading-placeholder" style="height: 200px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Container para o Footer (será preenchido pelo components.js) -->
+    <div id="footer-component">
+        <!-- Footer será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 300px;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Script específico para página "Quem Somos"
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aguardar componentes carregarem
+            const waitForComponents = setInterval(function() {
+                if (document.querySelector('#header-component header') && 
+                    document.querySelector('#footer-component footer')) {
+                    clearInterval(waitForComponents);
+                    initAboutPage();
+                }
+            }, 100);
+            
+            // Timeout para segurança
+            setTimeout(function() {
+                clearInterval(waitForComponents);
+                initAboutPage();
+            }, 3000);
+        });
+        
+        function initAboutPage() {
+            console.log('Inicializando página "Quem Somos"...');
+            
+            // Remover placeholders de loading
+            removeLoadingPlaceholders();
+            
+            // Configurar conteúdo da página
+            setupAboutContent();
+        }
+        
+        function removeLoadingPlaceholders() {
+            // Remover todas as classes de loading placeholder
+            const placeholders = document.querySelectorAll('.loading-placeholder');
+            placeholders.forEach(el => {
+                el.classList.remove('loading-placeholder');
+                el.removeAttribute('style');
+                
+                // Limpar conteúdo dos elementos que deveriam ter conteúdo dinâmico
+                if (el.classList.contains('value-card') || 
+                    el.classList.contains('about-content') ||
+                    el.closest('.page-header')) {
+                    el.innerHTML = '';
+                }
+            });
+        }
+        
+        function setupAboutContent() {
+            // Conteúdo da página "Quem Somos"
+            const pageHeader = document.querySelector('.page-header .container');
+            if (pageHeader) {
+                pageHeader.innerHTML = `
+                    <h1>Quem Somos</h1>
+                    <p>Conheça a história da PersoIta</p>
+                `;
+            }
+            
+            const aboutContent = document.querySelector('.about-content');
+            if (aboutContent) {
+                aboutContent.innerHTML = `
+                    <h2>Nossa História</h2>
+                    <p>A PersoIta nasceu do desejo de transformar momentos especiais em memórias tangíveis. Desde 2020, criamos produtos personalizados que contam histórias, celebram conquistas e fortalecem laços.</p>
+                    
+                    <h2>Nossa Missão</h2>
+                    <p>Criar produtos personalizados de alta qualidade que superem as expectativas dos nossos clientes, tornando cada peça única e especial.</p>
+                    
+                    <h2>Nossos Valores</h2>
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Qualidade</h3>
+                            <p>Usamos apenas os melhores materiais e técnicas de produção para garantir durabilidade e excelência em cada produto.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Inovação</h3>
+                            <p>Estamos sempre em busca de novas tecnologias e técnicas para oferecer as melhores soluções de personalização.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-users"></i>
+                            <h3>Atendimento</h3>
+                            <p>Nosso foco é entender as necessidades de cada cliente e proporcionar uma experiência única e satisfatória.</p>
+                        </div>
+                        <div class="value-card">
+                            <i class="fas fa-award"></i>
+                            <h3>Compromisso</h3>
+                            <p>Cumprimos prazos com responsabilidade e mantemos transparência em todas as etapas do processo.</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 60px; padding: 40px; background: linear-gradient(135deg, rgba(74, 111, 165, 0.1), rgba(91, 192, 190, 0.1)); border-radius: 12px;">
+                        <h2>Por que escolher a PersoIta?</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px;">
+                            <div>
+                                <i class="fas fa-check-circle" style="color: #4A6FA5; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                                <h4 style="margin-bottom: 10px;">Qualidade Garantida</h4>
+                                <p style="color: #495057;">Produtos feitos com materiais premium e acabamento impecável.</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-shipping-fast" style="color: #4A6FA5; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                                <h4 style="margin-bottom: 10px;">Entrega Rápida</h4>
+                                <p style="color: #495057;">Processo ágil e entregas dentro do prazo combinado.</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-palette" style="color: #4A6FA5; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                                <h4 style="margin-bottom: 10px;">Personalização Total</h4>
+                                <p style="color: #495057;">Do design à produção, tudo feito sob medida para você.</p>
+                            </div>
+                            <div>
+                                <i class="fas fa-headset" style="color: #4A6FA5; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                                <h4 style="margin-bottom: 10px;">Suporte Dedicado</h4>
+                                <p style="color: #495057;">Atendimento personalizado do início ao fim do projeto.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 60px; text-align: center;">
+                        <h2>Pronto para personalizar?</h2>
+                        <p style="margin-bottom: 30px; font-size: 1.1rem;">Entre em contato conosco e transforme sua ideia em realidade!</p>
+                        <a href="contato.html" class="btn-primary" style="padding: 12px 30px; font-size: 1.1rem;">
+                            <i class="fas fa-envelope"></i> Entre em Contato
+                        </a>
+                        <a href="produtos.html" class="btn-secondary" style="padding: 12px 30px; font-size: 1.1rem; margin-left: 15px;">
+                            <i class="fas fa-shopping-bag"></i> Ver Produtos
+                        </a>
+                    </div>
+                `;
+                
+                // Adicionar estilos para os botões se não estiverem no CSS ainda
+                const style = document.createElement('style');
+                style.textContent = `
+                    .btn-primary, .btn-secondary {
+                        display: inline-block;
+                        padding: 12px 24px;
+                        border-radius: 8px;
+                        font-weight: 500;
+                        text-align: center;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        text-decoration: none;
+                        font-family: 'Montserrat', sans-serif;
+                    }
+                    
+                    .btn-primary {
+                        background-color: #4A6FA5;
+                        color: white;
+                        border: none;
+                    }
+                    
+                    .btn-primary:hover {
+                        background-color: #3A5985;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .btn-secondary {
+                        background-color: white;
+                        color: #4A6FA5;
+                        border: 2px solid #4A6FA5;
+                    }
+                    
+                    .btn-secondary:hover {
+                        background-color: #4A6FA5;
+                        color: white;
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+</body>
+</html>

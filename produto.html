@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produto Personalizado - PersoIta</title>
+    <meta name="description" content="Personalize este produto com sua arte, foto ou texto. Criamos produtos únicos e de qualidade.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos temporários para evitar erros antes do CSS carregar */
+        .product-not-found {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+        .no-related {
+            text-align: center;
+            padding: 20px;
+            color: #6C757D;
+        }
+        .upload-success {
+            background-color: rgba(40, 167, 69, 0.1);
+            border-color: #28A745;
+        }
+        
+        /* Estilos de loading */
+        .loading-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Container para o Header (será preenchido pelo components.js) -->
+    <div id="header-component">
+        <!-- Header será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 80px;"></div>
+    </div>
+
+    <!-- Detalhes do Produto -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-content">
+                <!-- Imagens do Produto -->
+                <div class="product-images">
+                    <div class="main-image loading-placeholder" style="height: 400px;">
+                        <!-- Imagem será carregada via JavaScript -->
+                    </div>
+                    <div class="thumbnail-images" id="thumbnail-container">
+                        <!-- Miniaturas serão carregadas via JavaScript -->
+                        <div class="loading-placeholder" style="width: 80px; height: 80px; margin: 5px;"></div>
+                        <div class="loading-placeholder" style="width: 80px; height: 80px; margin: 5px;"></div>
+                        <div class="loading-placeholder" style="width: 80px; height: 80px; margin: 5px;"></div>
+                    </div>
+                </div>
+                
+                <!-- Informações do Produto -->
+                <div class="product-info">
+                    <div class="product-breadcrumb loading-placeholder" style="height: 20px; width: 60%; margin-bottom: 20px;"></div>
+                    
+                    <h1 class="loading-placeholder" style="height: 40px; width: 80%; margin-bottom: 20px;"></h1>
+                    <div class="product-rating">
+                        <div class="stars loading-placeholder" style="height: 24px; width: 120px;"></div>
+                    </div>
+                    
+                    <div class="product-price">
+                        <span class="loading-placeholder" style="height: 36px; width: 100px; display: inline-block;"></span>
+                    </div>
+                    
+                    <div class="product-description">
+                        <p class="loading-placeholder" style="height: 60px; margin-bottom: 15px;"></p>
+                        <p class="loading-placeholder" style="height: 60px;"></p>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="loading-placeholder" style="height: 100px; margin-bottom: 20px;"></div>
+                    </div>
+                    
+                    <!-- Personalização -->
+                    <div class="customization">
+                        <h3>Personalize este produto</h3>
+                        <div class="customization-options">
+                            <div class="custom-option">
+                                <label for="custom-text">Texto Personalizado</label>
+                                <textarea id="custom-text" placeholder="Digite o texto que deseja estampar (máx. 100 caracteres)" maxlength="100"></textarea>
+                                <span class="char-count"><span id="char-count">0</span>/100 caracteres</span>
+                            </div>
+                            <div class="custom-option">
+                                <label>Enviar Imagem para Estampa</label>
+                                <div class="upload-area" id="upload-area">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Arraste uma imagem ou <span class="upload-link">clique para enviar</span></p>
+                                    <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                                </div>
+                                <p class="upload-info">Formatos aceitos: JPG, PNG. Tamanho máximo: 5MB</p>
+                            </div>
+                            <div class="custom-option">
+                                <label for="color-select">Cor do Produto</label>
+                                <select id="color-select">
+                                    <option value="branco">Branco</option>
+                                    <option value="preto">Preto</option>
+                                    <option value="vermelho">Vermelho</option>
+                                    <option value="azul">Azul</option>
+                                    <option value="verde">Verde</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quantidade e Botão de Compra -->
+                    <div class="purchase-section">
+                        <div class="quantity-selector loading-placeholder" style="width: 120px; height: 40px;"></div>
+                        
+                        <button class="btn-primary add-to-cart-btn loading-placeholder" id="add-to-cart" style="width: 200px; height: 40px; border: none;"></button>
+                        
+                        <button class="btn-secondary buy-now-btn loading-placeholder" id="buy-now" style="width: 150px; height: 40px; border: none;"></button>
+                    </div>
+                    
+                    <!-- Informações de Entrega -->
+                    <div class="delivery-info">
+                        <div class="delivery-item">
+                            <i class="fas fa-shipping-fast"></i>
+                            <div>
+                                <strong>Frete Grátis</strong>
+                                <p>Para compras acima de R$ 100,00</p>
+                            </div>
+                        </div>
+                        <div class="delivery-item">
+                            <i class="fas fa-undo"></i>
+                            <div>
+                                <strong>Devolução Grátis</strong>
+                                <p>Até 7 dias após o recebimento</p>
+                            </div>
+                        </div>
+                        <div class="delivery-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Garantia de Qualidade</strong>
+                                <p>Produtos feitos com materiais premium</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produtos Relacionados -->
+            <div class="related-products">
+                <h2>Produtos Relacionados</h2>
+                <div class="products-grid" id="related-products">
+                    <!-- Produtos relacionados serão carregados via JavaScript -->
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                    <div class="product-card loading-placeholder" style="height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container para o Footer (será preenchido pelo components.js) -->
+    <div id="footer-component">
+        <!-- Footer será carregado aqui dinamicamente -->
+        <div class="loading-placeholder" style="height: 300px;"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/produtos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/carrinho.js"></script>
+    <script>
+        // Script específico para página de produto
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aguardar componentes carregarem
+            const waitForComponents = setInterval(function() {
+                if (document.querySelector('#header-component header') && 
+                    document.querySelector('#footer-component footer')) {
+                    clearInterval(waitForComponents);
+                    initProductPage();
+                }
+            }, 100);
+            
+            // Timeout para segurança
+            setTimeout(function() {
+                clearInterval(waitForComponents);
+                initProductPage();
+            }, 3000);
+        });
+        
+        function initProductPage() {
+            console.log('Inicializando página de produto...');
+            
+            // Verificar parâmetro de produto na URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (productId && window.produtos && Array.isArray(window.produtos)) {
+                // Encontrar produto pelo ID
+                const product = window.produtos.find(p => p.id == productId);
+                
+                if (product) {
+                    // Remover placeholders de loading
+                    removeLoadingPlaceholders();
+                    
+                    // Atualizar informações do produto
+                    displayProductDetails(product);
+                    
+                    // Carregar produtos relacionados
+                    loadRelatedProducts(product);
+                } else {
+                    // Produto não encontrado
+                    removeLoadingPlaceholders();
+                    showProductNotFound();
+                }
+            } else {
+                // Sem ID de produto ou sem produtos carregados
+                removeLoadingPlaceholders();
+                showProductNotFound();
+            }
+            
+            // Configurar funcionalidades da página
+            setupProductPageFeatures();
+        }
+        
+        function removeLoadingPlaceholders() {
+            // Remover todas as classes de loading placeholder
+            const placeholders = document.querySelectorAll('.loading-placeholder');
+            placeholders.forEach(el => {
+                el.classList.remove('loading-placeholder');
+                
+                // Remover estilos inline de loading
+                el.removeAttribute('style');
+                
+                // Limpar conteúdo dos elementos que deveriam ter conteúdo dinâmico
+                if (el.classList.contains('main-image') || 
+                    el.classList.contains('thumbnail-images') ||
+                    el.classList.contains('product-breadcrumb') ||
+                    el.classList.contains('product-name') ||
+                    el.classList.contains('product-price') ||
+                    el.classList.contains('product-description') ||
+                    el.classList.contains('product-features') ||
+                    el.classList.contains('product-card')) {
+                    el.innerHTML = '';
+                }
+            });
+        }
+        
+        function showProductNotFound() {
+            document.querySelector('.product-detail-content').innerHTML = `
+                <div class="product-not-found" style="grid-column: 1 / -1;">
+                    <i class="fas fa-search" style="font-size: 3rem; color: #6C757D; margin-bottom: 20px;"></i>
+                    <h2>Produto não encontrado</h2>
+                    <p>O produto que você está procurando não está disponível ou foi removido.</p>
+                    <a href="produtos.html" class="btn-primary" style="margin-top: 20px;">Ver todos os produtos</a>
+                </div>
+            `;
+        }
+        
+        function setupProductPageFeatures() {
+            // Configurar contador de caracteres
+            const textArea = document.getElementById('custom-text');
+            const charCount = document.getElementById('char-count');
+            
+            if (textArea && charCount) {
+                textArea.addEventListener('input', function() {
+                    charCount.textContent = this.value.length;
+                });
+            }
+            
+            // Configurar upload de imagem
+            const uploadArea = document.getElementById('upload-area');
+            const imageUpload = document.getElementById('image-upload');
+            
+            if (uploadArea && imageUpload) {
+                uploadArea.addEventListener('click', function() {
+                    imageUpload.click();
+                });
+                
+                imageUpload.addEventListener('change', function() {
+                    if (this.files && this.files[0]) {
+                        // Validar tamanho do arquivo (max 5MB)
+                        if (this.files[0].size > 5 * 1024 * 1024) {
+                            alert('Arquivo muito grande. Tamanho máximo: 5MB');
+                            this.value = '';
+                            return;
+                        }
+                        
+                        // Validar tipo do arquivo
+                        const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                        if (!validTypes.includes(this.files[0].type)) {
+                            alert('Formato não suportado. Use JPG ou PNG.');
+                            this.value = '';
+                            return;
+                        }
+                        
+                        uploadArea.innerHTML = `
+                            <i class="fas fa-check" style="color: #28A745; font-size: 1.5rem; margin-bottom: 10px;"></i>
+                            <p style="margin: 0; font-size: 0.9rem;">Imagem selecionada:<br><strong>${this.files[0].name}</strong></p>
+                        `;
+                        uploadArea.classList.add('upload-success');
+                    }
+                });
+            }
+            
+            // Configurar botões de quantidade
+            const minusBtn = document.querySelector('.quantity-btn.minus');
+            const plusBtn = document.querySelector('.quantity-btn.plus');
+            const quantityInput = document.querySelector('.quantity-input');
+            
+            if (minusBtn && plusBtn && quantityInput) {
+                minusBtn.addEventListener('click', function() {
+                    let value = parseInt(quantityInput.value);
+                    if (value > 1) {
+                        quantityInput.value = value - 1;
+                    }
+                });
+                
+                plusBtn.addEventListener('click', function() {
+                    let value = parseInt(quantityInput.value);
+                    if (value < 10) {
+                        quantityInput.value = value + 1;
+                    }
+                });
+                
+                quantityInput.addEventListener('change', function() {
+                    let value = parseInt(this.value);
+                    if (isNaN(value) || value < 1) this.value = 1;
+                    if (value > 10) this.value = 10;
+                });
+            }
+            
+            // Configurar botão "Adicionar ao Carrinho"
+            const addToCartBtn = document.getElementById('add-to-cart');
+            if (addToCartBtn) {
+                addToCartBtn.addEventListener('click', function() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const productId = urlParams.get('id');
+                    const quantity = parseInt(document.querySelector('.quantity-input')?.value || 1);
+                    const customText = document.getElementById('custom-text')?.value || '';
+                    const color = document.getElementById('color-select')?.value || 'branco';
+                    
+                    if (productId && window.addToCart) {
+                        // Verificar se há imagem personalizada
+                        const imageUpload = document.getElementById('image-upload');
+                        const hasCustomImage = imageUpload.files && imageUpload.files[0];
+                        
+                        // Adicionar produto ao carrinho
+                        const success = window.addToCart(productId, quantity, {
+                            textoPersonalizado: customText,
+                            cor: color,
+                            imagemPersonalizada: hasCustomImage ? 'Sim' : 'Não'
+                        });
+                        
+                        if (success) {
+                            // Feedback visual
+                            const originalText = this.innerHTML;
+                            this.innerHTML = '<i class="fas fa-check"></i> Adicionado!';
+                            this.classList.add('added');
+                            this.disabled = true;
+                            
+                            setTimeout(() => {
+                                this.innerHTML = originalText;
+                                this.classList.remove('added');
+                                this.disabled = false;
+                            }, 2000);
+                            
+                            // Atualizar contador do carrinho
+                            if (typeof updateCartCount === 'function') {
+                                updateCartCount();
+                            }
+                        }
+                    } else {
+                        alert('Erro ao adicionar ao carrinho. Produto não encontrado.');
+                    }
+                });
+            }
+            
+            // Configurar botão "Comprar Agora"
+            const buyNowBtn = document.getElementById('buy-now');
+            if (buyNowBtn) {
+                buyNowBtn.addEventListener('click', function() {
+                    // Primeiro adiciona ao carrinho, depois redireciona
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const productId = urlParams.get('id');
+                    const quantity = parseInt(document.querySelector('.quantity-input')?.value || 1);
+                    const customText = document.getElementById('custom-text')?.value || '';
+                    const color = document.getElementById('color-select')?.value || 'branco';
+                    
+                    if (productId && window.addToCart) {
+                        // Verificar se há imagem personalizada
+                        const imageUpload = document.getElementById('image-upload');
+                        const hasCustomImage = imageUpload.files && imageUpload.files[0];
+                        
+                        // Adicionar produto ao carrinho
+                        const success = window.addToCart(productId, quantity, {
+                            textoPersonalizado: customText,
+                            cor: color,
+                            imagemPersonalizada: hasCustomImage ? 'Sim' : 'Não'
+                        });
+                        
+                        if (success) {
+                            // Redirecionar para o carrinho
+                            window.location.href = 'carrinho.html';
+                        } else {
+                            alert('Erro ao processar compra. Tente novamente.');
+                        }
+                    }
+                });
+            }
+        }
+        
+        function displayProductDetails(product) {
+            // Atualizar informações básicas do produto
+            document.querySelector('.product-detail-content h1').textContent = product.nome;
+            document.getElementById('product-name-breadcrumb').textContent = product.nome;
+            
+            // Preço formatado
+            const priceElement = document.querySelector('.current-price');
+            if (priceElement) {
+                priceElement.textContent = formatPrice(product.preco);
+                priceElement.id = 'product-price';
+            }
+            
+            // Verificar se tem preço original (para mostrar desconto)
+            const originalPriceElement = document.querySelector('.original-price');
+            const discountBadge = document.querySelector('.discount-badge');
+            
+            if (product.precoOriginal && product.precoOriginal > product.preco) {
+                originalPriceElement.textContent = formatPrice(product.precoOriginal);
+                originalPriceElement.style.display = 'inline';
+                
+                const discount = Math.round(100 - (product.preco / product.precoOriginal) * 100);
+                discountBadge.textContent = `-${discount}%`;
+                discountBadge.style.display = 'inline';
+            } else {
+                originalPriceElement.style.display = 'none';
+                discountBadge.style.display = 'none';
+            }
+            
+            // Atualizar descrição
+            const descriptionElement = document.querySelector('.product-description');
+            if (descriptionElement) {
+                descriptionElement.innerHTML = `<p>${product.descricao}</p>`;
+            }
+            
+            // Atualizar link da categoria no breadcrumb
+            const breadcrumbLinks = document.querySelector('.product-breadcrumb');
+            if (breadcrumbLinks) {
+                breadcrumbLinks.innerHTML = `
+                    <a href="index.html">Início</a> > 
+                    <a href="produtos.html?categoria=${product.categoria}">${product.categoria.charAt(0).toUpperCase() + product.categoria.slice(1)}</a> > 
+                    <span>${product.nome}</span>
+                `;
+            }
+            
+            // Atualizar características
+            const featuresContainer = document.querySelector('.product-features');
+            if (product.caracteristicas && product.caracteristicas.length > 0) {
+                let featuresHTML = '<h3>Características</h3><ul>';
+                product.caracteristicas.forEach(feature => {
+                    featuresHTML += `<li><i class="fas fa-check"></i> ${feature}</li>`;
+                });
+                featuresHTML += '</ul>';
+                featuresContainer.innerHTML = featuresHTML;
+            }
+            
+            // Atualizar imagem principal
+            const mainImage = document.querySelector('.main-image');
+            mainImage.innerHTML = `<img id="main-product-image" src="${product.imagem}" alt="${product.nome}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            
+            // Criar miniaturas
+            const thumbnailContainer = document.getElementById('thumbnail-container');
+            thumbnailContainer.innerHTML = '';
+            
+            // Adicionar miniatura da imagem principal
+            addThumbnail(product.imagem, product.nome, thumbnailContainer);
+            
+            // Adicionar outras imagens se existirem
+            if (product.imagensAdicionais && product.imagensAdicionais.length > 0) {
+                product.imagensAdicionais.forEach(img => {
+                    addThumbnail(img, product.nome, thumbnailContainer);
+                });
+            }
+            
+            // Ativar primeira miniatura
+            if (thumbnailContainer.firstChild) {
+                thumbnailContainer.firstChild.classList.add('active');
+            }
+        }
+        
+        function addThumbnail(src, alt, container) {
+            const thumbnail = document.createElement('div');
+            thumbnail.className = 'thumbnail';
+            thumbnail.innerHTML = `<img src="${src}" alt="${alt}" style="width: 100%; height: 100%; object-fit: cover;">`;
+            
+            thumbnail.addEventListener('click', function() {
+                // Atualizar imagem principal
+                const mainImage = document.getElementById('main-product-image');
+                mainImage.src = src;
+                mainImage.alt = alt;
+                
+                // Remover classe ativa de todas as miniaturas
+                container.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                
+                // Adicionar classe ativa à miniatura clicada
+                this.classList.add('active');
+            });
+            
+            container.appendChild(thumbnail);
+        }
+        
+        function loadRelatedProducts(currentProduct) {
+            const relatedContainer = document.getElementById('related-products');
+            relatedContainer.innerHTML = '';
+            
+            if (window.produtos && Array.isArray(window.produtos)) {
+                // Filtrar produtos da mesma categoria (excluindo o atual)
+                const relatedProducts = window.produtos.filter(p => 
+                    p.categoria === currentProduct.categoria && p.id !== currentProduct.id
+                ).slice(0, 4); // Pegar no máximo 4 produtos
+                
+                if (relatedProducts.length > 0) {
+                    // Adicionar produtos relacionados
+                    relatedProducts.forEach(product => {
+                        const productCard = createProductCard(product);
+                        relatedContainer.appendChild(productCard);
+                    });
+                } else {
+                    relatedContainer.innerHTML = '<p class="no-related">Não há produtos relacionados no momento.</p>';
+                }
+            } else {
+                relatedContainer.innerHTML = '<p class="no-related">Carregando produtos relacionados...</p>';
+            }
+        }
+        
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.imagem}" alt="${product.nome}" loading="lazy">
+                    ${product.desconto ? '<span class="product-badge">Oferta</span>' : ''}
+                </div>
+                <div class="product-info">
+                    <div class="product-category">${product.categoria.charAt(0).toUpperCase() + product.categoria.slice(1)}</div>
+                    <h3 class="product-name">${product.nome}</h3>
+                    <p class="product-description">${product.descricao.substring(0, 60)}...</p>
+                    <div class="product-price">
+                        <span class="current-price">${formatPrice(product.preco)}</span>
+                        ${product.precoOriginal && product.precoOriginal > product.preco ? 
+                            `<span class="original-price">${formatPrice(product.precoOriginal)}</span>
+                             <span class="discount-badge">-${Math.round(100 - (product.preco / product.precoOriginal) * 100)}%</span>` : ''}
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn-add-to-cart" onclick="addToCart('${product.id}', 1)">
+                            <i class="fas fa-shopping-cart"></i> Adicionar
+                        </button>
+                        <button class="btn-view-details" onclick="window.location.href='produto.html?id=${product.id}'">
+                            <i class="fas fa-eye"></i> Ver
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Adicionar evento de clique na imagem do produto
+            card.querySelector('.product-image').addEventListener('click', function() {
+                window.location.href = `produto.html?id=${product.id}`;
+            });
+            
+            return card;
+        }
+        
+        function formatPrice(price) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(price);
+        }
+        
+        // Função global para adicionar ao carrinho (será sobrescrita pelo carrinho.js)
+        window.addToCart = window.addToCart || function(productId, quantity, customizations) {
+            console.log('Adicionando ao carrinho:', { productId, quantity, customizations });
+            // Esta função será sobrescrita pelo carrinho.js
+            return true;
+        };
+    </script>
+</body>
+</html>

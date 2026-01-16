@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - PersoIta</title>
+    <meta name="description" content="Entre em contato com a PersoIta para pedidos personalizados, dúvidas ou orçamentos.">
+    
+    <!-- Links CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Sistema de componentes -->
+    <script src="js/components.js" defer></script>
+    
+    <!-- Estilos específicos da página de contato -->
+    <style>
+        /* Estilos para página de contato */
+        .contact-section {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 40px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-info h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .contact-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .contact-item i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 20px;
+            margin-top: 5px;
+            width: 40px;
+            text-align: center;
+        }
+        
+        .contact-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+        
+        .contact-item p {
+            color: var(--gray-color);
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-form h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 20, 60, 0.1);
+        }
+        
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .contact-form button {
+            margin-top: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .contact-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .whatsapp-contact {
+            margin-top: 40px;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, var(--primary-color), #d4003d);
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .whatsapp-contact h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .whatsapp-contact p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .whatsapp-contact .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .whatsapp-contact .btn-whatsapp:hover {
+            background: #1da851;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-contact .btn-whatsapp i {
+            font-size: 24px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 991px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 30px;
+            }
+            
+            .contact-info h2,
+            .contact-form h2 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contact-section {
+                padding: 60px 0;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 25px;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .contact-item i {
+                margin-bottom: 10px;
+            }
+            
+            .whatsapp-contact {
+                padding: 30px 20px;
+            }
+            
+            .whatsapp-contact h3 {
+                font-size: 20px;
+            }
+            
+            .whatsapp-contact p {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .contact-section {
+                padding: 40px 0;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 20px;
+            }
+            
+            .contact-form input,
+            .contact-form textarea {
+                padding: 12px;
+            }
+            
+            .whatsapp-contact {
+                padding: 25px 15px;
+            }
+            
+            .whatsapp-contact .btn-whatsapp {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- APENAS OS CONTAINERS - o components.js vai inserir o conteúdo aqui -->
+    <div id="header-component"></div>
+    
+    <!-- Cabeçalho da página -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Contato</h1>
+            <p>Entre em contato conosco para tirar dúvidas, fazer pedidos personalizados ou solicitar orçamentos</p>
+        </div>
+    </section>
+    
+    <!-- Seção de contato -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <!-- Informações de contato -->
+                <div class="contact-info">
+                    <h2>Informações de Contato</h2>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h3>Telefone/WhatsApp</h3>
+                            <p>(31) 99061-7185</p>
+                            <p>Atendimento por WhatsApp de segunda a sábado</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>E-mail</h3>
+                            <p>persoita@hotmail.com</p>
+                            <p>Respondemos em até 24 horas úteis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3>Horário de Atendimento</h3>
+                            <p>Segunda a Sexta: 8h às 17h</p>
+                            <p>Sábado: 8h às 12h</p>
+                            <p>Domingo: Fechado</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Localização</h3>
+                            <p>Itabira - Minas Gerais</p>
+                            <p>Atendemos toda a região e enviamos para todo o Brasil</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Formulário de contato -->
+                <div class="contact-form">
+                    <h2>Envie uma Mensagem</h2>
+                    <form id="contactForm">
+                        <input type="text" placeholder="Seu nome completo" required>
+                        <input type="email" placeholder="Seu e-mail" required>
+                        <input type="tel" placeholder="Seu telefone (com DDD)" required>
+                        <input type="text" placeholder="Assunto">
+                        <textarea placeholder="Sua mensagem... Conte-nos sobre sua ideia de produto personalizado!" rows="6" required></textarea>
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Contato via WhatsApp -->
+            <div class="whatsapp-contact">
+                <h3>Prefere falar diretamente?</h3>
+                <p>Clique abaixo para conversar conosco no WhatsApp</p>
+                <a href="https://wa.me/5531990617185?text=Ol%C3%A1%2C%20conheci%20a%20PersoIta%20atrav%C3%A9s%20do%20site%20e%20gostaria%20de%20tirar%20algumas%20d%C3%BAvidas." 
+                   target="_blank" 
+                   class="btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Conversar no WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- APENAS O CONTAINER - o components.js vai inserir o conteúdo aqui -->
+    <div id="footer-component"></div>
+    
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    
+    <!-- Script específico da página de contato -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Esperar os componentes carregarem
+            function initContactPage() {
+                // Configurar envio do formulário
+                const contactForm = document.getElementById('contactForm');
+                
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        
+                        // Obter valores do formulário
+                        const name = this.querySelector('input[type="text"]').value;
+                        const email = this.querySelector('input[type="email"]').value;
+                        const phone = this.querySelector('input[type="tel"]').value;
+                        const message = this.querySelector('textarea').value;
+                        
+                        // Validação simples
+                        if (!name || !email || !message) {
+                            alert('Por favor, preencha todos os campos obrigatórios.');
+                            return;
+                        }
+                        
+                        // Simulação de envio (substituir por código real)
+                        console.log('Enviando mensagem:', { name, email, phone, message });
+                        
+                        // Mostrar mensagem de sucesso
+                        alert('Obrigado! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.');
+                        
+                        // Limpar formulário
+                        this.reset();
+                    });
+                }
+                
+                // Configurar máscara de telefone
+                const phoneInput = document.querySelector('input[type="tel"]');
+                if (phoneInput) {
+                    phoneInput.addEventListener('input', function(e) {
+                        let value = e.target.value.replace(/\D/g, '');
+                        
+                        if (value.length > 11) {
+                            value = value.substring(0, 11);
+                        }
+                        
+                        if (value.length > 10) {
+                            value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+                        } else if (value.length > 6) {
+                            value = value.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+                        } else if (value.length > 2) {
+                            value = value.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+                        } else if (value.length > 0) {
+                            value = value.replace(/^(\d{0,2})$/, '($1');
+                        }
+                        
+                        e.target.value = value;
+                    });
+                }
+            }
+            
+            // Se os componentes já carregaram, inicializar a página
+            if (window.componentsLoaded) {
+                initContactPage();
+            } else {
+                // Esperar os componentes carregarem
+                const checkComponents = setInterval(function() {
+                    if (window.componentsLoaded) {
+                        clearInterval(checkComponents);
+                        setTimeout(initContactPage, 100);
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
