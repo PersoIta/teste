@@ -352,26 +352,6 @@
                 });
             }
             
-            // Configurar dropdown de ordenação
-            const sortSelect = document.getElementById('sort-select');
-            if (!sortSelect) {
-                const filterControls = document.querySelector('.filter-controls');
-                if (filterControls) {
-                    const sortDiv = document.createElement('div');
-                    sortDiv.className = 'filter-sort';
-                    sortDiv.innerHTML = `
-                        <label for="sort-select">Ordenar por:</label>
-                        <select id="sort-select">
-                            <option value="relevancia">Relevância</option>
-                            <option value="preco-crescente">Preço: Menor para Maior</option>
-                            <option value="preco-decrescente">Preço: Maior para Menor</option>
-                            <option value="nome">Nome (A-Z)</option>
-                        </select>
-                    `;
-                    filterControls.appendChild(sortDiv);
-                }
-            }
-            
             // Configurar evento de ordenação
             document.getElementById('sort-select').addEventListener('change', function() {
                 sortProducts(this.value);

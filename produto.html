@@ -420,38 +420,71 @@
             setupVariations(product);
         }
         
-        function generateVariationsHTML(product) {
-            // DADOS DE EXEMPLO - Você deve substituir pelos seus dados reais
+            function generateVariationsHTML(product) {
+                console.log('🔍 Produto atual:', product.nome); // ADICIONE ESTA LINHA
+                console.log('🔍 Produto completo:', product);   // ADICIONE ESTA LINHA
+                
+                // Defina todas as variações em um objeto separado
+                const allVariations = {
+                    // Canecas
+                    'Caneca com Alça e Interior Colorido': {
+                        variations: {
+                            'Alça Vermelha': 'assets/images/produtos/canecas/caneca-alca-vermelha.png',
+                            'Alça Verde': 'assets/images/produtos/canecas/caneca-alca-verde.jpg', 
+                            'Alça Azul': 'assets/images/produtos/canecas/caneca-alca-azul.jpg',
+                            'Alça Rosa': 'assets/images/produtos/canecas/caneca-alca-rosa.jpg',
+                            'Alça Preta': 'assets/images/produtos/canecas/caneca-alca-preta.jpg',
+                        },
+                        title: 'Escolha a cor da alça:'
+                    },
+                    
+                    'Caneca Mágica': {
+                        variations: {
+                            'Caneca Mágica Azul': 'assets/images/produtos/canecas/caneca-magica-preta.jpg'
+                        },
+                        title: 'Escolha o modelo:'
+                    },
+                    
+                    // QUEBRA-CABEÇA
+                    'Quebra-cabeça Personalizado': {
+                        variations: {
+                            '6 Peças': 'assets/images/produtos/quebra-cabeca/6-pecas.jpg',
+                            '100 Peças': 'assets/images/produtos/quebra-cabeca/100-pecas.jpg',
+                        },
+                        title: 'Escolha o número de peças:'
+                    },
+                    
+                    // ... outros produtos
+                };
+                
+                console.log('🔍 Produto encontrado em allVariations?', product.nome in allVariations); // ADICIONE ESTA LINHA
             
-            // Mapeamento de variações com imagens específicas
-            const variationImages = {
-                // Canecas
-                'Caneca com Alça e Interior Colorido': {
-                    'Alça Vermelha': 'assets/images/produtos/canecas/caneca-alca-vermelha.png',
-                    'Alça Verde': 'assets/images/produtos/canecas/caneca-alca-verde.jpg', 
-                    'Alça Azul': 'assets/images/produtos/canecas/caneca-alca-azul.jpg',
-                    'Alça Preta': 'assets/images/produtos/canecas/caneca-alca-preta.jpg',
-                    'Alça Rosa': 'assets/images/produtos/canecas/caneca-alca-rosa.jpg'
-                },
-                'Caneca Mágica': {
-                    'Caneca Mágica Azul': 'assets/images/produtos/canecas/caneca-magica-preta.jpg'
-                },
-                'Caneca Porcelana Personalizada': {
-                    'Porcelana Branca': 'assets/images/produtos/canecas/porcelana-branca.jpg'
+            // Verificar se este produto tem variações definidas
+            const productData = allVariations[product.nome];
+            if (!productData) {
+                // Se não encontrar variações específicas, verificar se o produto tem propriedade 'variacoes'
+                const productVariations = product.variacoes || {};
+                const variationKeys = Object.keys(productVariations);
+                
+                if (variationKeys.length === 0) {
+                    return '';
                 }
-            };
-            
-            // Obter variações para este produto
-            const productVariations = variationImages[product.nome] || product.variacoes || {};
-            const variationKeys = Object.keys(productVariations);
-            
-            if (variationKeys.length === 0) {
-                return '';
+                
+                // Gerar HTML com título padrão
+                return generateVariationOptions(productVariations, 'Escolha a variação:');
             }
+            
+            // Gerar HTML com título específico do produto
+            return generateVariationOptions(productData.variations, productData.title);
+        }
+
+        // Função auxiliar para gerar o HTML das opções
+        function generateVariationOptions(variations, title) {
+            const variationKeys = Object.keys(variations);
             
             let optionsHTML = '';
             variationKeys.forEach((variationName, index) => {
-                const variationImage = productVariations[variationName];
+                const variationImage = variations[variationName];
                 const variationData = {
                     nome: variationName,
                     imagem: variationImage
@@ -469,7 +502,7 @@
             
             return `
                 <div class="variations-container">
-                    <h3 style="margin-bottom: 15px; color: #2C3E50;">Escolha a variação:</h3>
+                    <h3 style="margin-bottom: 15px; color: #2C3E50;">${title}</h3>
                     <div class="variation-options">
                         ${optionsHTML}
                     </div>
