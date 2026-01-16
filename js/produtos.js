@@ -1,5 +1,11 @@
 // js/produtos.js - USE IMAGENS QUE EXISTEM
 
+// No seu produtos.js, adicione esta função
+function getSafeImagePath(imagePath) {
+    // Verificar se a imagem existe, se não, usar placeholder
+    return imagePath; // Por enquanto, retorna o caminho original
+}
+
 const produtos = [
     // Canecas
     {

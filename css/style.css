@@ -172,6 +172,51 @@ a:hover {
     font-weight: 600;
 }
 
+/* REMOVER TODOS OS BOTÕES "ADICIONAR AO CARRINHO" DO SITE TODO */
+.btn-add-to-cart,
+button.btn-add-to-cart,
+.product-actions .btn-add-to-cart,
+.featured-products .btn-add-to-cart,
+.products-grid .btn-add-to-cart,
+button[onclick*="addToCart"],
+button[onclick*="addToCart("],
+button[onclick*="addToCart()"],
+.product-actions button:first-child:has(i.fa-shopping-cart) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* Ajustar layout dos botões restantes */
+.product-actions {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.btn-view-details,
+.product-actions a {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Para quando só tem um botão */
+.product-actions:has(:only-child) {
+    width: 100% !important;
+}
+
+.product-actions:has(:only-child) > * {
+    flex: 1 !important;
+}
+
 .nav-link.active::after {
     width: 80% !important;
 }
@@ -183,7 +228,7 @@ a:hover {
 }
 
 .logo-img {
-    height: 55px;
+    height: 110px;
     width: auto;
     max-width: 160px;
     transition: transform var(--transition-normal);
@@ -456,19 +501,165 @@ a:hover {
 
 .product-image {
     height: 200px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 15px;
     position: relative;
+    border-radius: 8px 8px 0 0;
 }
 
 .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 90%;
+    max-height: 90%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* CORREÇÃO AQUI */
     transition: transform var(--transition-slow);
 }
 
 .product-card:hover .product-image img {
     transform: scale(1.05);
+}
+/* ==========================================================================
+   CORREÇÃO COMPLETA DE IMAGENS - PERSOITA
+   ========================================================================== */
+
+/* 1. PRODUTOS EM LISTAGEM (produtos.html, index.html) */
+.products-grid .product-image,
+.featured-products .product-image {
+    height: 200px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    padding: 15px !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.products-grid .product-image img,
+.featured-products .product-image img {
+    max-width: 90% !important;
+    max-height: 90% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    transition: transform 0.5s ease !important;
+}
+
+.products-grid .product-card:hover .product-image img,
+.featured-products .product-card:hover .product-image img {
+    transform: scale(1.05) !important;
+}
+
+/* 2. CARRINHO DE COMPRAS */
+.cart-item-image {
+    width: 120px !important;
+    height: 120px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    border: 1px solid #eee !important;
+}
+
+.cart-item-image img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* 3. PÁGINA DE PRODUTO INDIVIDUAL */
+.product-images .main-image {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    padding: 30px !important;
+    border-radius: 12px !important;
+    border: 1px solid #eee !important;
+    min-height: 400px;
+}
+
+.product-images .main-image img {
+    max-width: 100% !important;
+    max-height: 350px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* 4. MINIATURAS */
+.thumbnail {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: white !important;
+    padding: 5px !important;
+    border: 2px solid transparent !important;
+}
+
+.thumbnail img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+.thumbnail.active {
+    border-color: #4A6FA5 !important;
+}
+
+/* 5. CATEGORIAS E DESTAQUES */
+.category-card .category-icon,
+.categories-grid .category-icon {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* 6. RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .product-image {
+        height: 180px !important;
+        padding: 10px !important;
+    }
+    
+    .product-image img {
+        max-width: 85% !important;
+        max-height: 85% !important;
+    }
+    
+    .cart-item-image {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .product-images .main-image {
+        padding: 15px !important;
+        min-height: 300px !important;
+    }
+    
+    .product-images .main-image img {
+        max-height: 250px !important;
+    }
+}
+
+/* 7. FALLBACK PARA IMAGENS QUEBRADAS */
+img[src*="produtos"]:not([src*="logo"]):not([src*="icon"]) {
+    background-color: white !important;
+    padding: 5px !important;
+}
+
+img:not([src]):not([srcset]) {
+    background-color: #f8f9fa !important;
+    padding: 20px !important;
 }
 
 .product-badge {
@@ -738,6 +929,24 @@ a:hover {
     border-radius: var(--border-radius-lg);
     overflow: hidden;
     box-shadow: var(--shadow-md);
+}
+
+.product-images .main-image {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product-images .main-image img {
+    max-width: 100%;
+    max-height: 500px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
 }
 
 .main-image img {
@@ -1042,12 +1251,21 @@ a:hover {
 .cart-item-image {
     border-radius: var(--border-radius-md);
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 10px;
+    height: 120px;
+    width: 120px;
 }
 
 .cart-item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* MUDAR para 'contain' */
 }
 
 .cart-item-header {
@@ -1628,60 +1846,4 @@ a:hover {
         color: black;
         text-decoration: underline;
     }
-}
-
-/* ==========================================================================
-   Remover qualquer mega menu residual
-   ========================================================================== */
-.mega-dropdown,
-.mega-dropdown *,
-.mega-menu,
-.mega-menu *,
-.mega-menu-content,
-.mega-menu-column,
-.submenu-nested,
-.submenu-link,
-.mega-menu-promo,
-.new-badge,
-.btn-promo,
-.submenu,
-.submenu-content {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
-}
-
-/* TESTE TEMPORÁRIO - REMOVA DEPOIS */
-.debug-header {
-    border: 3px solid red !important;
-}
-
-.debug-nav {
-    border: 3px solid blue !important;
-    background-color: yellow !important;
-}
-
-.debug-nav-list {
-    border: 3px solid green !important;
-    display: flex !important;
-    visibility: visible !important;
-}
-
-.debug-nav-item {
-    border: 2px solid purple !important;
-    background-color: pink !important;
-}
-
-.debug-nav-link {
-    border: 2px solid orange !important;
-    background-color: lightblue !important;
-    color: black !important;
-    font-size: 16px !important;
-    padding: 10px !important;
-    display: inline-block !important;
 }

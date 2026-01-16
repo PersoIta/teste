@@ -584,14 +584,11 @@
                             `<span class="original-price">${formatPrice(product.precoOriginal)}</span>
                              <span class="discount-badge">-${Math.round(100 - ((product.preco || 0) / product.precoOriginal) * 100)}%</span>` : ''}
                     </div>
-                    <div class="product-actions">
-                        <button class="btn-add-to-cart" onclick="addToCart('${product.id || '1'}', 1)">
-                            <i class="fas fa-shopping-cart"></i> Adicionar
-                        </button>
-                        <button class="btn-view-details" onclick="window.location.href='produto.html?id=${product.id || '1'}'">
-                            <i class="fas fa-eye"></i> Ver
-                        </button>
-                    </div>
+                        <div class="product-actions">
+                            <button class="btn-view-details" onclick="window.location.href='produto.html?id=${product.id || '1'}'" style="width: 100%;">
+                                <i class="fas fa-eye"></i> Ver Detalhes
+                            </button>
+                        </div>
                 </div>
             `;
             

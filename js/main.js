@@ -138,97 +138,11 @@ const headerHTML = `
             <!-- Menu Principal -->
             <nav class="nav-menu">
                 <ul class="nav-list">
-                    <!-- PRODUTOS (com mega dropdown) -->
-                    <li class="nav-item mega-dropdown">
+                    <!-- Produtos -->
+                    <li class="nav-item">
                         <a href="produtos.html" class="nav-link">
-                            <i class="fas fa-store"></i> Produtos
+                            <i class="fas fa-users"></i> Produtos
                         </a>
-                        <div class="mega-menu">
-                            <div class="mega-menu-content">
-                                <!-- Coluna 1: Canecas -->
-                                <div class="mega-menu-column">
-                                    <h4><i class="fas fa-mug-hot"></i> Canecas</h4>
-                                    <div class="submenu-nested">
-                                        <a href="produtos.html?categoria=canecas&tipo=porcelana" class="submenu-link">
-                                            Canecas de Porcelana
-                                        </a>
-                                        <a href="produtos.html?categoria=canecas&tipo=polimero" class="submenu-link">
-                                            Canecas Polímero
-                                        </a>
-                                        <a href="produtos.html?categoria=canecas&tipo=magica" class="submenu-link">
-                                            Canecas Mágica
-                                        </a>
-                                        <a href="produtos.html?categoria=canecas&tipo=alca-colorida" class="submenu-link">
-                                            Canecas de Alça Colorida
-                                        </a>
-                                        <a href="produtos.html?categoria=canecas&tipo=alca-coracao" class="submenu-link">
-                                            Canecas de Alça Coração
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Coluna 2: Camisas -->
-                                <div class="mega-menu-column">
-                                    <h4><i class="fas fa-tshirt"></i> Camisas</h4>
-                                    <div class="submenu-nested">
-                                        <a href="produtos.html?categoria=camisas&tipo=body-infantil" class="submenu-link">
-                                            Body Infantil
-                                        </a>
-                                        <a href="produtos.html?categoria=camisas&tipo=brancas" class="submenu-link">
-                                            Camisas Brancas
-                                        </a>
-                                        <a href="produtos.html?categoria=camisas&tipo=cinzas" class="submenu-link">
-                                            Camisas Cinzas
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Coluna 3: Chaveiros e Placas -->
-                                <div class="mega-menu-column">
-                                    <h4><i class="fas fa-key"></i> Chaveiros</h4>
-                                    <div class="submenu-nested">
-                                        <a href="produtos.html?categoria=chaveiros&tipo=acrilico" class="submenu-link">
-                                            Chaveiros de Acrílico
-                                        </a>
-                                        <a href="produtos.html?categoria=chaveiros&tipo=madeira" class="submenu-link">
-                                            Chaveiros de Madeira
-                                        </a>
-                                    </div>
-                                    
-                                    <h4><i class="fas fa-clipboard"></i> Placas</h4>
-                                    <div class="submenu-nested">
-                                        <a href="produtos.html?categoria=placas&tipo=branca" class="submenu-link">
-                                            Placas de Acrílico Branca
-                                        </a>
-                                        <a href="produtos.html?categoria=placas&tipo=transparente" class="submenu-link">
-                                            Placas de Acrílico Transparente
-                                        </a>
-                                    </div>
-                                </div>
-                                
-                                <!-- Coluna 4: Novos Produtos -->
-                                <div class="mega-menu-column">
-                                    <h4><i class="fas fa-star"></i> Novos Produtos</h4>
-                                    <div class="submenu-nested">
-                                        <a href="produtos.html?categoria=azulejos&tipo=quadrado" class="submenu-link">
-                                            <span class="new-badge">NOVO</span> Azulejo Quadrado
-                                        </a>
-                                        <a href="produtos.html?categoria=quebra-cabeca&tipo=padrao" class="submenu-link">
-                                            <span class="new-badge">NOVO</span> Quebra-cabeça
-                                        </a>
-                                        <a href="produtos.html?categoria=chinelos&tipo=branco" class="submenu-link">
-                                            <span class="new-badge">NOVO</span> Chinelo Branco
-                                        </a>
-                                    </div>
-                                    
-                                    <div class="mega-menu-promo">
-                                        <h5>🌿 Promoção Especial</h5>
-                                        <p>Frete grátis em compras acima de R$ 100</p>
-                                        <a href="produtos.html?promocao=true" class="btn-promo">Ver Ofertas</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </li>
                     
                     <!-- QUEM SOMOS -->
@@ -246,20 +160,6 @@ const headerHTML = `
                     </li>
                 </ul>
             </nav>
-
-            <!-- Área de busca e carrinho -->
-            <div class="header-actions">
-                <div class="search-box">
-                    <input type="text" class="search-input" placeholder="Buscar produtos...">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
-                <div class="cart-icon">
-                    <a href="carrinho.html">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                </div>
-            </div>
         </div>
     </div>
 </header>`;
@@ -287,7 +187,6 @@ const footerHTML = `
                 <ul class="footer-links">
                     <li><a href="index.html">Início</a></li>
                     <li><a href="produtos.html">Produtos</a></li>
-                    <li><a href="carrinho.html">Carrinho</a></li>
                 </ul>
             </div>
             
