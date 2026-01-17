@@ -92,6 +92,13 @@
                     <h3>Chinelos</h3>
                     <p>Chinelos brancos personalizados</p>
                 </a>
+                            <a href="produtos.html?categoria=mouse-pad" class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-mouse"></i>
+                </div>
+                <h3>Mouse Pad</h3>
+                <p>Mousepads personalizados com sua arte</p>
+            </a>
             </div>
         </div>
     </section>
@@ -214,16 +221,16 @@
             // Limpar container
             container.innerHTML = '';
             
-            // Pegar até 4 produtos em destaque
-            const produtosEmDestaque = window.produtos
-                .filter(p => p.emDestaque === true)
-                .slice(0, 4);
-            
-            // Se não houver em destaque, pegar os primeiros 4
-            const produtosParaMostrar = produtosEmDestaque.length > 0 
-                ? produtosEmDestaque 
-                : window.produtos.slice(0, 4);
-        
+                // Pegar até 6 produtos em destaque
+                const produtosEmDestaque = window.produtos
+                    .filter(p => p.emDestaque === true)
+                    .slice(0, 6);
+                    
+                // Se não houver em destaque, pegar os primeiros 6
+                const produtosParaMostrar = produtosEmDestaque.length > 0 
+                    ? produtosEmDestaque 
+                    : window.produtos.slice(0, 6);
+
                 // Adicionar produtos ao container
                 produtosParaMostrar.forEach(produto => {
                     try {

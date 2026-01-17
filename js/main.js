@@ -89,6 +89,7 @@ const categoryNames = {
     'azulejos': 'Azulejos Personalizados',
     'quebra-cabeca': 'Quebra-cabeças Personalizados',
     'chinelos': 'Chinelos Personalizados',
+    'mouse-pad':'Mouse Pad Personalizado',
     'todos': 'Todos os Produtos'
 };
 
@@ -100,6 +101,9 @@ const subcategoryNames = {
     'alca-colorida': 'Canecas de Alça Colorida',
     'alca-coracao': 'Canecas de Alça Coração',
     
+    //Mouse Pad
+    'mouse-pad': 'Mouse Pad Personalizado',
+
     // Camisas
     'body-infantil': 'Body Infantil',
     'brancas': 'Camisas Brancas',
